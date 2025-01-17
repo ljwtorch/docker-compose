@@ -1,0 +1,18 @@
+services:
+  jenkins:
+    restart: unless-stopped
+    image: jenkinsci/blueocean
+    container_name: jenkins
+    user: root
+    ports:
+      - 8080:8080
+      - 28888:28888
+    volumes:
+      - ./:/var/jenkins_home
+      # 可选是否挂载宿主机docker/docker-compose文件
+      #- /usr/bin/docker:/usr/bin/docker
+      #- /usr/local/bin/docker-compose:/usr/local/bin/docker-compose
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=Asia/Shanghai
+      - JENKINS_SLAVE_AGENT_PORT=28888
